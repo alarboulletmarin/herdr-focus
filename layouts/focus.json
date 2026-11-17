@@ -31,14 +31,7 @@
                 "mod": "focus-chrome"
               },
               "size": {
-                "px": 60
-              },
-              "background": {
-                "gradient": [
-                  "#060a16b8",
-                  "#060a1640"
-                ],
-                "angle": 180
+                "px": 52
               },
               "window_drag": true
             },
@@ -65,14 +58,22 @@
                       "content": {
                         "tab": "active",
                         "pane": {
-                          "background": "#0b0f1a",
+                          "background": "#0c111d",
                           "border": {
                             "width": 1,
-                            "color": "#ffffff14"
+                            "color": "#ffffff17"
                           },
                           "radius": 16,
                           "gap": 8,
-                          "lone": true
+                          "lone": true,
+                          "header": {
+                            "content": {
+                              "mod": "focus-chrome"
+                            },
+                            "height": 52,
+                            "position": "top",
+                            "reveal": "always"
+                          }
                         }
                       },
                       "background": "#00000000",
@@ -84,7 +85,7 @@
                     }
                   ],
                   "size": {
-                    "weight": 10
+                    "weight": 6
                   },
                   "gap": 8,
                   "resizable": false
@@ -99,18 +100,19 @@
                   "min": 16
                 }
               ],
-              "padding": [
-                8,
-                0
-              ],
               "resizable": false
             },
             {
               "id": "focus-foot",
-              "type": "column",
-              "children": [],
+              "type": "block",
               "size": {
-                "px": 16
+                "px": 64
+              },
+              "content": {
+                "mod": "focus-chrome",
+                "props": {
+                  "part": "dock"
+                }
               }
             }
           ],

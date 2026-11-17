@@ -54,6 +54,8 @@ export default class Focus extends View {
         if (["projects", "branches"].includes(command)) this.open(command);
         if (command === "workspace") this.workspace();
         if (command === "sessions") this.sessions();
+        // "Next task" from a finished session: start from its folder.
+        if (command === "next" && shared("focus.next")) this.selectProject(shared("focus.next"), cx);
         if (command === "new") { this.pending = false; this.menu = null; this.input.focus(); }
         cx.notify();
       }

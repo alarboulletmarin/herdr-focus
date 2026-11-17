@@ -6,7 +6,7 @@ A launcher-first Herdr layout: a single composer over a full-window painting, th
 
 ## What you see
 
-**Colors.** Night blue surfaces that sit on the painting and one fixed peach accent: card `#0d1220ed`, list `#0a0e1abd`, raised `#1c2438`, lines `#ffffff17` / `#ffffff12`, text `#f2f4f8`, muted `#c3cad9`, sub `#aab2c5`, dim `#8d96ab`, faint `#5d6680`, accent `#f6c1a0` (hover `#ffd9c2`, ink `#2a1810`, focus ring `#f6c1a061`), working `#7cc4ff` (text `#9fd3ff`), blocked `#ffb35c` (text `#ffc98a`, halo `#ffb35c2e`), errors `#ff9a9a`. UI font Noto Sans. The terminal theme `focus` has a `#0c111d` background, `#c9cfdc` text, a peach cursor.
+**Colors.** Night blue surfaces that sit on the painting and one fixed peach accent: card `#0d1220ed`, list `#0a0e1abd`, raised `#1c2438`, lines `#ffffff17` / `#ffffff12`, text `#f2f4f8`, muted `#c3cad9`, sub `#aab2c5`, dim `#8d96ab`, faint `#5d6680`, accent `#f6c1a0` (hover `#ffd9c2`, ink `#2a1810`, focus ring `#f6c1a061`), working `#7cc4ff` (text `#9fd3ff`), done `#7ee0a8` (text `#a6efc4`), blocked `#ffb35c` (text `#ffc98a`, halo `#ffb35c2e`), errors `#ff9a9a`. UI font Noto Sans. The terminal theme `focus` has a `#0c111d` background, `#c9cfdc` text, a peach cursor.
 
 **Home** (the default child of the `focus-content` stack), over the background image with a top-down scrim gradient `#060a1699` → transparent:
 
@@ -19,10 +19,13 @@ A launcher-first Herdr layout: a single composer over a full-window painting, th
 - **The agent popover**, 8px under the card: three columns (Agent, Model with a filter field, Effort), checks on the chosen rows, "Check installed agents again" and "Saved for this project." in small dim text. Agents Herdr can't configure show the Agent column only.
 - **The projects / branches popover**, under the chip row: a filter field and the list (folder name, its parent folder or machine on the right), then "Choose a folder…".
 
-**Session** (the `focus-session` child): a `#060a1647` veil over the painting.
+**Session** (the `focus-session` child): a `#060a1647` veil over the painting. No colored borders anywhere: state shows in the header pill and the dots only.
 
-- **A 60px header** on a `#060a16b8` → `#060a1640` gradient, draggable: "+ New task", a hairline, then the session's name 14px semibold over "folder / branch · agent · model · effort" 11px (branch only inside Git; agent details from 980px), a status pill when working ("Working · 2 min", blue) or blocked ("Needs you", orange), then on the right Sessions (with an orange count of the other sessions waiting for you), Background and Classic workspace.
-- **The terminal**: the shown tab in one card, 16px radius, `#0b0f1a`, 1px `#ffffff14` border, 18 × 22px terminal padding, 0.95 opacity, between two flexible margins (1 : 10 : 1, at least 16px each), 8px from the header and 16px from the bottom.
+- **A 52px top bar**, no background, draggable: the Herdr mark (20px), "+ New task"; on the right Background and Classic workspace, icon only.
+- **The session window**: the shown tab in one card, between two flexible margins (1 : 6 : 1, at least 16px each), 16px radius, `#0c111d`, 1px `#ffffff17` border, 18 × 22px terminal padding, 0.95 opacity.
+  - Its title bar is a 52px pane header inside the same frame (`#10162a`, a hairline under it): the session's name 14px semibold over "folder / branch · agent · model · effort" 11px (branch only inside Git, agent details from 720px), then a status pill: "Working · 4 min" (blue), "Needs you" (orange), "Done · 12 min" (green, check icon).
+  - When the session is done, the title bar adds Review changes (Herdr's `changes` dialog for that terminal), Close (closes the tab, back to the composer) and an accent "Next task" (the composer, set to this session's folder).
+- **A 64px row of sessions** under the card: one 34px pill per agent session (status dot, name, and "· Needs you", "· 4 min" or "· Done" on the others), the shown one lighter; as many as fit, the most urgent first and the shown one always kept, laid out in tab order; then "All sessions" (with the count when some don't fit).
 
 **All sessions**: a 620 × 520 dialog: a 56px search row (search icon, "Search sessions, projects, branches…", Esc cap), the sessions grouped under NEEDS YOU (orange), WORKING, FINISHED, EARLIER and TERMINALS, the selected row lighter with an Enter cap, and a footer with ↑ ↓ "to move" and "Open classic workspace".
 
@@ -31,7 +34,7 @@ A launcher-first Herdr layout: a single composer over a full-window painting, th
 ## How it behaves
 
 - **Starting a task**: Ctrl+Enter or the send button. It opens a tab named after the task in the folder's space (or a new space for a folder without one), with the agent's command, model and effort flags (`--model`, Claude's `--effort`, Codex's `model_reasoning_effort` and `--no-daemon`), switches to the session view and gives the new terminal the keyboard. The task is passed as a structured argument, never through a shell. A second press while starting does nothing.
-- **Statuses**: blocked shows "Needs you" in orange and sorts first everywhere; working is blue with the time since it started; done shows "Done · time"; idle shows the time since it changed; terminals without an agent are listed last in All sessions only.
+- **Statuses**: blocked shows "Needs you" in orange and sorts first everywhere; working is blue with the time since it started; done is green and shows "Done · time"; idle shows the time since it changed; terminals without an agent are listed last in All sessions only.
 - **Names**: a tab someone named keeps its name; an unnamed one shows its terminal's title without spinner glyphs, or "Session N".
 - **Projects** are the folders the spaces start in and their terminals are in now, one entry per folder and machine. A space's name follows its first terminal, so it can name another folder: the menu shows folders. Choosing one reads its branch and worktrees; agent, model and effort are remembered per folder.
 - **Popovers**: Esc or a press outside closes them. They stop the mouse press, so a click on a row never reaches the session row drawn underneath.
@@ -44,14 +47,14 @@ A launcher-first Herdr layout: a single composer over a full-window painting, th
 
 - `layouts/focus.json`: a root column (theme `focus`, the colors above as theme overrides, background image `backgrounds/focus/blue-hour.jpg` cover, `ui_font` Noto Sans, `preview`) holding the stack `focus-content`:
   - `focus-home`: a block with mod `focus`.
-  - `focus-session`: a column, not resizable: `focus-chrome` (block, 60px, `window_drag`, mod `focus-chrome`), `focus-body` (a row with padding [8, 0]: empty columns `focus-left` / `focus-right` of weight 1, min 16, around `focus-main`, weight 10, holding `focus-output`: `{ "tab": "active", "pane": { … "lone": true } }`), and `focus-foot` (an empty 16px column).
+  - `focus-session`: a column, not resizable: `focus-chrome` (block, 52px, `window_drag`, mod `focus-chrome`), `focus-body` (a row: empty columns `focus-left` / `focus-right` of weight 1, min 16, around `focus-main`, weight 6, holding `focus-output`: `{ "tab": "active", "pane": { … "lone": true, "header": { "content": { "mod": "focus-chrome" }, "height": 52, "position": "top", "reveal": "always" } } }`), and `focus-foot` (block, 64px, mod `focus-chrome` with `props: { part: "dock" }`).
   - Both mod blocks accept a `classic` prop: the layout the Classic workspace buttons switch to (default `main`).
 - `themes/focus.json`: the terminal colors.
 - `mods/focus`: the composer, its popovers and Recent sessions. `logic.js` (launch request, worktree parsing, the project list), `options.js` (model catalogs from `~/.codex/models_cache.json` and Claude's aliases, agent flags), `sessions.js` and `palette.js` (shared with `focus-chrome`).
-- `mods/focus-chrome`: the session header, and All sessions when opened with `props: { sessions: true }`.
+- `mods/focus-chrome`: one mod, four parts: the top bar (no props), the session title bar (as a pane header it gets `props().terminal`), the row of sessions (`part: "dock"`) and All sessions (`sessions: true`, in a dialog).
 - `mods/focus-backgrounds`: the background dialog; it runs `zenity` for the file picker when present.
 - Herdr's own assets: `mods/workspace-chrome/*.svg` icons and `frame/welcome/herdr.png`.
-- `herdr`: `spaces`, `agents`, `panes`, `knownAgents`, `exec` (`git worktree list`, `git rev-parse`), `readTextFile`, `pickFolder`, `shared` / `setShared` (`focus.draft`, `focus.preferences`, `focus.sessions`, `focus.background`), `openOverlay`, `settings`, `run` with `tab.new`, `space.new`, `space.select`, `tab.select`, `pane.focus`, `layout.select`, `layout.switch`, `layout.set`.
+- `herdr`: `spaces`, `agents`, `panes`, `knownAgents`, `exec` (`git worktree list`, `git rev-parse`), `readTextFile`, `pickFolder`, `shared` / `setShared` (`focus.draft`, `focus.preferences`, `focus.sessions`, `focus.background`), `openOverlay`, `settings`, `run` with `tab.new`, `tab.close`, `focus.next` (the composer's command for "Next task"), `space.new`, `space.select`, `tab.select`, `pane.focus`, `layout.select`, `layout.switch`, `layout.set`.
 
 ## Watch out
 
@@ -70,6 +73,7 @@ A launcher-first Herdr layout: a single composer over a full-window painting, th
 - `herdr-app check` passes for `mods/focus`, `mods/focus-chrome` and `mods/focus-backgrounds`.
 - `node mods/focus/tests/sessions.test.mjs` and `node --experimental-vm-modules mods/focus/tests/flow.test.mjs` pass.
 - Writing a task and pressing Ctrl+Enter opens a tab in the chosen folder with the chosen agent, shows the session view, and typing goes to the agent's terminal.
+- A finished session shows Review changes, Close and Next task in its title bar; Next task opens the composer on that session's folder.
 - Choosing an agent, model or effort over the Recent sessions list changes only the choice; no session opens.
 - A folder without Git shows "No Git repository"; two spaces in the same folder give one project.
 - At zoom 1.5 the Recent sessions list never runs off the window.

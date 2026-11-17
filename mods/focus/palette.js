@@ -7,6 +7,7 @@ export const C = {
   fg: "#f2f4f8", muted: "#c3cad9", sub: "#aab2c5", dim: "#8d96ab", faint: "#5d6680",
   accent: "#f6c1a0", accentHover: "#ffd9c2", accentInk: "#2a1810", accentRing: "#f6c1a061",
   working: "#7cc4ff", workingText: "#9fd3ff", blocked: "#ffb35c", blockedText: "#ffc98a", blockedHalo: "#ffb35c2e",
+  done: "#7ee0a8", doneText: "#a6efc4",
   error: "#ff9a9a",
 };
 
@@ -19,5 +20,5 @@ export function statusDot(status) {
   const box = div().size(14).rounded(7).flex_none().flex().items_center().justify_center();
   const dot = div().size(8).rounded(4);
   if (status === "blocked") return box.bg(C.blockedHalo).child(dot.bg(C.blocked));
-  return box.child(status === "working" ? dot.bg(C.working) : dot.border_1().border_color(C.dim));
+  return box.child(status === "working" ? dot.bg(C.working) : status === "done" ? dot.bg(C.done) : dot.border_1().border_color(C.dim));
 }

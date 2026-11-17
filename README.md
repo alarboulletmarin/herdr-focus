@@ -6,7 +6,7 @@ A [Herdr](https://herdr.dev) layout that puts one thing on screen: what you want
 
 - **One composer**: the project folder and its branch, the task, and one button for agent, model and effort (Claude Code, Codex and the other agents Herdr knows), remembered per project. Ctrl+Enter starts it.
 - **Recent sessions** under the composer: the ones waiting for you first, then the ones working, with how long they have been at it.
-- **A quiet session view**: the agent's terminal in a centered card that gets the keyboard at once, a header with the task, the folder, the branch and the agent's state, and a count of the other sessions waiting for you.
+- **A quiet session window**: the agent's terminal and its title bar (task, folder, branch, agent, state) in one card that gets the keyboard at once, the other sessions as pills below it, and Review changes, Close and Next task once the agent is done.
 - **All sessions** (Ctrl+K on the composer, or the Sessions button): search, grouped by Needs you, Working, Finished, and the keyboard to move.
 - **Projects are folders**: one entry per folder, no duplicates, and "No Git repository" where there is none.
 - **Your own background**: pick an image, fill or fit, or a solid color.
