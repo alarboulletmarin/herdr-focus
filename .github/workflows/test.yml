@@ -1,0 +1,15 @@
+name: Tests
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Sessions, projects and the launch flow
+        working-directory: mods/focus
+        run: |
+          node tests/sessions.test.mjs
+          node --experimental-vm-modules --disable-warning=ExperimentalWarning tests/flow.test.mjs

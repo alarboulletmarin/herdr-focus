@@ -1,0 +1,147 @@
+{
+  "id": "focus-root",
+  "type": "column",
+  "children": [
+    {
+      "id": "focus-content",
+      "type": "stack",
+      "children": [
+        {
+          "id": "focus-home",
+          "type": "block",
+          "content": {
+            "mod": "focus"
+          },
+          "background": {
+            "gradient": [
+              "#060a1699",
+              "#060a1600"
+            ],
+            "angle": 180
+          }
+        },
+        {
+          "id": "focus-session",
+          "type": "column",
+          "children": [
+            {
+              "id": "focus-chrome",
+              "type": "block",
+              "content": {
+                "mod": "focus-chrome"
+              },
+              "size": {
+                "px": 60
+              },
+              "background": {
+                "gradient": [
+                  "#060a16b8",
+                  "#060a1640"
+                ],
+                "angle": 180
+              },
+              "window_drag": true
+            },
+            {
+              "id": "focus-body",
+              "type": "row",
+              "children": [
+                {
+                  "id": "focus-left",
+                  "type": "column",
+                  "children": [],
+                  "size": {
+                    "weight": 1
+                  },
+                  "min": 16
+                },
+                {
+                  "id": "focus-main",
+                  "type": "column",
+                  "children": [
+                    {
+                      "id": "focus-output",
+                      "type": "block",
+                      "content": {
+                        "tab": "active",
+                        "pane": {
+                          "background": "#0b0f1a",
+                          "border": {
+                            "width": 1,
+                            "color": "#ffffff14"
+                          },
+                          "radius": 16,
+                          "gap": 8,
+                          "lone": true
+                        }
+                      },
+                      "background": "#00000000",
+                      "terminal_padding": [
+                        18,
+                        22
+                      ],
+                      "terminal_opacity": 0.95
+                    }
+                  ],
+                  "size": {
+                    "weight": 10
+                  },
+                  "gap": 8,
+                  "resizable": false
+                },
+                {
+                  "id": "focus-right",
+                  "type": "column",
+                  "children": [],
+                  "size": {
+                    "weight": 1
+                  },
+                  "min": 16
+                }
+              ],
+              "padding": [
+                8,
+                0
+              ],
+              "resizable": false
+            },
+            {
+              "id": "focus-foot",
+              "type": "column",
+              "children": [],
+              "size": {
+                "px": 16
+              }
+            }
+          ],
+          "background": "#060a1647",
+          "resizable": false
+        }
+      ],
+      "active": "focus-home"
+    }
+  ],
+  "background": {
+    "image": "backgrounds/focus/blue-hour.jpg",
+    "fit": "cover"
+  },
+  "theme": "focus",
+  "colors": {
+    "accent": "#f6c1a0",
+    "blocked": "#ffb35c",
+    "border": "#2a3248",
+    "dim": "#8d96ab",
+    "foreground": "#f2f4f8",
+    "hover": "#222b42",
+    "input": "#3a4560",
+    "muted": "#c3cad9",
+    "popover": "#0d1220fa",
+    "raised": "#1c2438",
+    "solid": "#f6c1a0",
+    "solid_foreground": "#2a1810",
+    "surface": "#141a2b",
+    "working": "#7cc4ff"
+  },
+  "ui_font": "Noto Sans",
+  "preview": "layouts/focus.png"
+}
